@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title>Spoof Detection</title>
+  </head>
+  <body>
+    <h1>Spoof Detection</h1>
+    {% if is_video %}
+      <img src = "{{ url_for('video_feed') }}">
+    {% else %}
+      <a href="result">Go to results</a>
+    {% endif %}
+  </body>
+</html>
