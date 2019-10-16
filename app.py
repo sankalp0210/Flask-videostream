@@ -27,7 +27,17 @@ def video():
 
 @app.route('/result')
 def result():
-    bashCommand = "sshpass -p \"Fingerface!\" scp -r output biometrics@cvit.iiit.ac.in:~"
+    bashCommand = "python3 file.py"
+    output = subprocess.check_output(['bash','-c', bashCommand])
+    sleep(5)
+    bashCommand = "sshpass -p \"Fingerface!\" scp -r output user@ada.iiit.ac.in:~"
+    output = subprocess.check_output(['bash','-c', bashCommand])
+    bashCommand = "sshpass -p \"Fingerface!\" ssh output user@ada.iiit.ac.in \"bash test.sh\""
+    output = subprocess.check_output(['bash','-c', bashCommand])
+    sleep(30)
+    bashCommand = "sshpass -p \"Fingerface!\" scp -r user@ada.iiit.ac.in:~/out.txt ."
+    output = subprocess.check_output(['bash','-c', bashCommand])
+    bashCommand = "cat out.txt"
     output = subprocess.check_output(['bash','-c', bashCommand])
     return render_template('result.html')
 
