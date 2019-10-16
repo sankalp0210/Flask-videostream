@@ -3,7 +3,8 @@ from importlib import import_module
 import os
 from flask import Flask, render_template, Response, url_for, redirect
 from camera_opencv import Camera
-
+import subprocess
+from time import sleep
 global_frame = open('img.jpg', 'rb').read()
 
 app = Flask(__name__)
@@ -26,6 +27,8 @@ def video():
 
 @app.route('/result')
 def result():
+    bashCommand = "sshpass -p \"Fingerface!\" scp -r output biometrics@cvit.iiit.ac.in:~"
+    output = subprocess.check_output(['bash','-c', bashCommand])
     return render_template('result.html')
 
 def gen(camera):

@@ -23,7 +23,7 @@ class Camera(BaseCamera):
 
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
-        out2 = cv2.VideoWriter('frames.avi',fourcc, 20.0, (640,480))
+        out2 = cv2.VideoWriter('./output/frames.avi',fourcc, 20.0, (640,480))
         cnt = 0
         # tm = time()
         # while camera.isOpened() and (time() - tm) < 5:
