@@ -5,6 +5,7 @@ from flask import Flask, render_template, Response, url_for, redirect
 from camera_opencv import Camera
 import subprocess
 from time import sleep
+
 global_frame = open('img.jpg', 'rb').read()
 
 app = Flask(__name__)
@@ -27,19 +28,24 @@ def video():
 
 @app.route('/result')
 def result():
-    bashCommand = "python3 file.py"
+    bashCommand = "python3 face_rec/df.py --input output/frames.avi --prototxt face_rec/deploy.prototxt.txt --model face_rec/res10_300x300_ssd_iter_140000.caffemodel"
     output = subprocess.check_output(['bash','-c', bashCommand])
-    sleep(5)
-    bashCommand = "sshpass -p \"Fingerface!\" scp -r output user@ada.iiit.ac.in:~"
+    sleep(1)
+    bashCommand = "sshpass -p \"sgdmomentum\" scp -r output saiamrit@ada.iiit.ac.in:/home/saiamrit/ECCV2018-FaceDeSpoofing1/data/real/rl"
     output = subprocess.check_output(['bash','-c', bashCommand])
-    bashCommand = "sshpass -p \"Fingerface!\" ssh output user@ada.iiit.ac.in \"bash test.sh\""
+    bashCommand = "sshpass -p \"sgdmomentum\" ssh saiamrit@ada.iiit.ac.in \"cd /home/saiamrit/ECCV2018-FaceDeSpoofing1/ && rm -rf slurm*\""
+    output = subprocess.check_output(['bash','-c', bashCommand])
+    bashCommand = "sshpass -p \"sgdmomentum\" ssh saiamrit@ada.iiit.ac.in \"cd /home/saiamrit/ECCV2018-FaceDeSpoofing1/ && sbatch test.sh\""
     output = subprocess.check_output(['bash','-c', bashCommand])
     sleep(30)
-    bashCommand = "sshpass -p \"Fingerface!\" scp -r user@ada.iiit.ac.in:~/out.txt ."
+    bashCommand = "rm -rf slurm*"
     output = subprocess.check_output(['bash','-c', bashCommand])
-    bashCommand = "cat out.txt"
+    bashCommand = "sshpass -p \"sgdmomentum\" scp -r saiamrit@ada.iiit.ac.in:/home/saiamrit/ECCV2018-FaceDeSpoofing1/slurm* ."
     output = subprocess.check_output(['bash','-c', bashCommand])
-    return render_template('result.html')
+    bashCommand = "cat slurm* | tail -2 | head -1 > out.txt"
+    output = subprocess.check_output(['bash','-c', bashCommand])
+    f = open("out.txt", "r")
+    return render_template('result.html', ans = f.read())
 
 def gen(camera):
     """Video streaming generator function."""

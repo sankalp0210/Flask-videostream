@@ -1,0 +1,24 @@
+==========================================
+SLURM_JOB_ID = 34668
+SLURM_NODELIST = gnode03
+SLURM_JOB_GPUS = 0
+==========================================
+WARNING:tensorflow:The saved meta_graph is possibly from an older release:
+'model_variables' collection should be of type 'byte_list', but instead is of type 'node_list'.
+Imports done
+Loaded stuffs
+Image sizes set
+Name scopes set
+Entered main
+File created
+Processing...
+Video capturing
+video capture begins
+Vesion check start
+Vesion check ends
+Loading the model
+Model is loaded
+Image loaded
+Scores loaded
+THIS IS A SPOOF VIDEO
+Done!

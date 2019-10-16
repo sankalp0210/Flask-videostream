@@ -4,7 +4,7 @@ from base_camera import BaseCamera
 from time import time
 
 class Camera(BaseCamera):
-    video_source = 0
+    video_source = 2
 
     def __init__(self):
         if os.environ.get('OPENCV_CAMERA_SOURCE'):
@@ -22,11 +22,10 @@ class Camera(BaseCamera):
             raise RuntimeError('Could not start camera.')
 
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
+        out = cv2.VideoWriter('frames.avi',fourcc, 20.0, (640,480))
         out2 = cv2.VideoWriter('./output/frames.avi',fourcc, 20.0, (640,480))
         cnt = 0
-        # tm = time()
-        # while camera.isOpened() and (time() - tm) < 5:
+
         while camera.isOpened():
             cnt += 1
             ret, img = camera.read()
